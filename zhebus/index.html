@@ -3,46 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Notion Embed</title>
+  <title>Notion Fullscreen</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    html, body {
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    header {
-      background-color: #333;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    main {
-      padding: 2rem;
-      text-align: center;
+      height: 100%;
+      overflow: hidden;
     }
 
     iframe {
-      width: 100%;
-      height: 600px;
       border: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      height: 100%;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Embedded Notion Page</h1>
-  </header>
-  <main>
-    <p>Below is an embedded Notion page:</p>
-    <iframe
-      src="https://jinhoe.notion.site/ebd/1fc45d686531817f9d23e2993f978041"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
-  </main>
+  <iframe
+    src="https://jinhoe.notion.site/ebd/1fc45d686531817f9d23e2993f978041"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
 </body>
 </html>
