@@ -1,1 +1,1 @@
-# jinhoe app website
+# App website
