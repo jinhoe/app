@@ -45,6 +45,11 @@
       }
     }
 
+    /* Like jinhoe.com, 1rem = one line of body text */
+    html {
+      font-size: var(--f-lineheight);
+    }
+
     *,
     *::before,
     *::after {
@@ -66,7 +71,7 @@
     }
 
     body {
-      padding: 72px 20px 48px;
+      padding: 5rem 1rem 1.5rem;
       background: var(--c-bg);
       color: var(--c-text);
       font-family: var(--f-family);
@@ -97,7 +102,8 @@
 
     h1 {
       font-size: calc(var(--f-size) * 1.6);
-      line-height: 1.25;
+      line-height: 1.3rem;
+      padding: 0.35rem 0;
     }
 
     h2 {
@@ -106,7 +112,7 @@
     }
 
     .intro {
-      margin-top: 12px;
+      margin-top: 4px;
       color: var(--c-text-mid);
     }
 
@@ -183,16 +189,14 @@
     }
 
     footer {
-      margin-top: 136px;
+      margin-top: 4rem;
       text-align: center;
     }
 
     footer a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
       margin: 0 0.5rem;
       font-size: calc(var(--f-size) * 0.889);
+      line-height: 0.8rem;
     }
   </style>
 </head>
