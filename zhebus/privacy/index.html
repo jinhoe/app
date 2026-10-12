@@ -3,29 +3,278 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="How ZheBus collects, uses, and safeguards your information." />
   <title>Privacy Policy – ZheBus</title>
   <link rel="icon" href="/zhebus/favicon.png" type="image/png" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+    /* Tokens mirror jinhoe.com (assets/css/main.min.css) */
+    :root {
+      --c-bg: hsl(0, 0%, 100%);
+      --c-line: hsl(0, 0%, 90%);
+      --c-high: hsla(210, 100%, 60%, 0.3);
+      --c-high-light: hsla(210, 100%, 60%, 0.8);
+      --c-text: hsl(0, 0%, 25%);
+      --c-text-strong: hsl(0, 0%, 15%);
+      --c-text-mid: hsl(0, 0%, 35%);
+      --f-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Palatino LT STD", Garamond, Baskerville, "Hoefler Text", "Times New Roman", serif;
+      --f-size: 16px;
+      --f-lineheight: 27px;
     }
 
-    iframe {
-      border: none;
-      width: 100%;
-      height: 100%;
-      display: block;
+    @media (min-width: 500px) {
+      :root { --f-size: 17px; --f-lineheight: 32px; }
+    }
+
+    @media (min-width: 768px) {
+      :root { --f-size: 18px; --f-lineheight: 34px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --c-bg: hsl(0, 0%, 10%);
+        --c-line: hsl(0, 0%, 22%);
+        --c-text: hsl(0, 0%, 82%);
+        --c-text-strong: hsl(0, 0%, 92%);
+        --c-text-mid: hsl(0, 0%, 62%);
+      }
+    }
+
+    /* Like jinhoe.com, 1rem = one line of body text */
+    html {
+      font-size: var(--f-lineheight);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: var(--c-high);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--c-high-light);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    body {
+      padding: 3rem 1rem 1.5rem;
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-family);
+      font-size: var(--f-size);
+      line-height: var(--f-lineheight);
+    }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 300ms ease-out;
+    }
+
+    a:hover {
+      color: var(--c-text-mid);
+    }
+
+    article a {
+      text-decoration: underline;
+      text-decoration-color: var(--c-line);
+      text-underline-offset: 3px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--c-text-mid);
+    }
+
+    h1,
+    h2,
+    h3,
+    strong {
+      color: var(--c-text-strong);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: calc(var(--f-size) * 1.6);
+      line-height: 1.3rem;
+      padding: 0.35rem 0;
+      margin-top: 1rem;
+    }
+
+    h2 {
+      font-size: calc(var(--f-size) * 1.3);
+      line-height: 1.3;
+      margin-top: 2rem;
+    }
+
+    h3 {
+      font-size: var(--f-size);
+      margin-top: 1rem;
+    }
+
+    .updated {
+      color: var(--c-text-mid);
+    }
+
+    article p {
+      margin-top: 0.5rem;
+    }
+
+    article ul {
+      padding-left: 1.25em;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--c-line);
+      text-align: center;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      font-size: calc(var(--f-size) * 0.889);
+      line-height: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <iframe
-    src="https://jinhoe.notion.site/ebd/20245d6865318094a161ce5a11403f86"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
+  <main>
+    <a class="back" href="/zhebus/">← ZheBus</a>
+
+    <article>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: 29 May 2025</p>
+
+      <h2>Introduction</h2>
+      <p>ZheBus ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our iOS application ZheBus (the "App").</p>
+
+      <h2>1. Information We Collect</h2>
+      <h3>Location Information</h3>
+      <ul>
+        <li><strong>Current Location</strong>: We collect your device's location to show nearby bus stops and provide location-based services</li>
+        <li><strong>Usage</strong>: Location data is used locally on your device to center the map and find nearby bus stops</li>
+        <li><strong>Storage</strong>: Location data is not stored on our servers</li>
+      </ul>
+      <h3>App Usage Data</h3>
+      <ul>
+        <li><strong>Bus Stop Bookmarks</strong>: We store your saved bus stops and preferences locally on your device</li>
+        <li><strong>App Preferences</strong>: Settings such as last viewed page and user preferences are stored locally</li>
+        <li><strong>Search History</strong>: Search queries are processed locally and not transmitted to our servers</li>
+      </ul>
+      <h3>Technical Information</h3>
+      <ul>
+        <li><strong>Device Information</strong>: iOS version and device type for app compatibility</li>
+        <li><strong>App Performance</strong>: Crash reports and performance data to improve app functionality</li>
+        <li><strong>Network Requests</strong>: API calls to Singapore's LTA DataMall for bus arrival data</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <h3>Core App Functionality</h3>
+      <ul>
+        <li>Display nearby bus stops based on your location</li>
+        <li>Provide real-time bus arrival information</li>
+        <li>Save and organize your regular bus routes</li>
+        <li>Improve map accuracy and user experience</li>
+      </ul>
+      <h3>Service Enhancement</h3>
+      <ul>
+        <li>Analyze app usage patterns to improve features</li>
+        <li>Debug technical issues and crashes</li>
+        <li>Optimize app performance and reliability</li>
+      </ul>
+
+      <h2>3. Data Sharing and Third Parties</h2>
+      <h3>Singapore Land Transport Authority (LTA)</h3>
+      <ul>
+        <li>We retrieve public bus stop and arrival data from LTA DataMall API</li>
+        <li>No personal information is shared with LTA</li>
+        <li>Only bus stop codes are transmitted to retrieve arrival times</li>
+      </ul>
+      <h3>Apple Services</h3>
+      <ul>
+        <li>Location services are processed through Apple's Core Location framework</li>
+        <li>Map data is provided through Apple Maps integration</li>
+        <li>App analytics may be shared with Apple as per iOS standard practices</li>
+      </ul>
+      <h3>Advertising Partners</h3>
+      <ul>
+        <li>Google AdMob may collect advertising identifiers</li>
+        <li>You can opt out of personalized ads in iOS Settings &gt; Privacy &amp; Security &gt; Apple Advertising</li>
+      </ul>
+
+      <h2>4. Data Storage and Security</h2>
+      <h3>Local Storage</h3>
+      <ul>
+        <li>Bookmarks and preferences are stored locally on your device using iOS secure storage</li>
+        <li>Location data is processed in real-time and not permanently stored</li>
+        <li>Data remains on your device and is not transmitted to external servers</li>
+      </ul>
+      <h3>Security Measures</h3>
+      <ul>
+        <li>All API communications use HTTPS encryption</li>
+        <li>Location data is processed using Apple's secure frameworks</li>
+        <li>No sensitive personal information is collected or stored</li>
+      </ul>
+
+      <h2>5. Your Privacy Rights</h2>
+      <h3>Control Your Data</h3>
+      <ul>
+        <li><strong>Location Access</strong>: You can disable location services in iOS Settings &gt; Privacy &amp; Security &gt; Location Services</li>
+        <li><strong>Data Deletion</strong>: Uninstalling the app removes all locally stored data</li>
+        <li><strong>Preferences</strong>: You can clear bookmarks within the app</li>
+      </ul>
+      <h3>Opt-Out Options</h3>
+      <ul>
+        <li>Disable location services while still using bus stop search functionality</li>
+        <li>Control advertising preferences through iOS settings</li>
+      </ul>
+
+      <h2>6. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by:</p>
+      <ul>
+        <li>Updating the "Last Updated" date</li>
+        <li>Providing notice through the App Store if required</li>
+      </ul>
+
+      <h2>7. Contact Information</h2>
+      <p>If you have questions about this Privacy Policy or our data practices, please contact us: <a href="/zhebus/support/">ZheBus App Support</a></p>
+
+      <h2>8. Legal Compliance</h2>
+      <p>This Privacy Policy complies with:</p>
+      <ul>
+        <li>Apple App Store Review Guidelines</li>
+        <li>iOS Privacy and Security requirements</li>
+        <li>Singapore Personal Data Protection Act (PDPA) where applicable</li>
+        <li>General privacy best practices for mobile applications</li>
+      </ul>
+
+      <h2>9. Consent</h2>
+      <p>By using ZheBus, you consent to the collection and use of information as described in this Privacy Policy. Thank you for trusting ZheBus with your Singapore bus travel needs.</p>
+    </article>
+
+    <footer>
+      <nav aria-label="Site">
+        <a href="https://jinhoe.com/">Home</a>
+        <a href="https://jinhoe.com/about">About</a>
+        <a href="https://app.jinhoe.com/">Apps</a>
+      </nav>
+    </footer>
+  </main>
 </body>
 </html>
