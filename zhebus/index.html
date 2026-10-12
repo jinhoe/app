@@ -3,29 +3,434 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZheBus App</title>
+  <meta name="description" content="Singapore bus arrivals. Simplified. Real-time timings, nearby stops and Live Activities, with no clutter." />
+  <title>ZheBus – Singapore Bus Arrivals</title>
   <link rel="icon" href="/zhebus/favicon.png" type="image/png" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+    /* Tokens mirror jinhoe.com (assets/css/main.min.css) */
+    :root {
+      --c-bg: hsl(0, 0%, 100%);
+      --c-bg-light: hsl(0, 0%, 97%);
+      --c-tile: hsl(0, 0%, 89%);
+      --c-high: hsla(210, 100%, 60%, 0.3);
+      --c-high-light: hsla(210, 100%, 60%, 0.8);
+      --c-text: hsl(0, 0%, 25%);
+      --c-text-strong: hsl(0, 0%, 15%);
+      --c-text-mid: hsl(0, 0%, 35%);
+      --f-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Palatino LT STD", Garamond, Baskerville, "Hoefler Text", "Times New Roman", serif;
+      --f-size: 16px;
+      --f-lineheight: 27px;
     }
 
-    iframe {
-      border: none;
-      width: 100%;
-      height: 100%;
+    @media (min-width: 500px) {
+      :root { --f-size: 17px; --f-lineheight: 32px; }
+    }
+
+    @media (min-width: 768px) {
+      :root { --f-size: 18px; --f-lineheight: 34px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --c-bg: hsl(0, 0%, 10%);
+        --c-bg-light: hsl(0, 0%, 15%);
+        --c-tile: hsl(0, 0%, 22%);
+        --c-text: hsl(0, 0%, 82%);
+        --c-text-strong: hsl(0, 0%, 92%);
+        --c-text-mid: hsl(0, 0%, 62%);
+      }
+    }
+
+    /* Like jinhoe.com, 1rem = one line of body text */
+    html {
+      font-size: var(--f-lineheight);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: var(--c-high);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--c-high-light);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    body {
+      padding: 3rem 1rem 1.5rem;
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-family);
+      font-size: var(--f-size);
+      line-height: var(--f-lineheight);
+    }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 300ms ease-out;
+    }
+
+    a:hover {
+      color: var(--c-text-mid);
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--c-text-strong);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: calc(var(--f-size) * 1.6);
+      line-height: 1.3rem;
+    }
+
+    h2 {
+      font-size: calc(var(--f-size) * 1.3);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: var(--f-size);
+    }
+
+    section {
+      margin-top: 2.5rem;
+    }
+
+    section p + p,
+    section p + ul,
+    section ul + p {
+      margin-top: 0.5rem;
+    }
+
+    section ul {
+      padding-left: 1.25em;
+    }
+
+    /* Header */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero .icon {
+      flex: 0 0 112px;
+      width: 112px;
+      height: 112px;
+      border-radius: 25px;
+      background: var(--c-tile);
+    }
+
+    .hero .body {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
+
+    .tagline {
+      color: var(--c-text-mid);
+    }
+
+    .store {
+      display: inline-flex;
+      margin-top: 12px;
+    }
+
+    .store img {
       display: block;
+      height: 40px;
+      width: auto;
+      transition: opacity 300ms ease-out;
+    }
+
+    .store:hover img {
+      opacity: 0.8;
+    }
+
+    /* Screenshots: swipeable row */
+    .shots {
+      display: flex;
+      gap: 12px;
+      margin-top: 2.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      list-style: none;
+    }
+
+    .shots::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shots li {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
+
+    .shots img {
+      display: block;
+      width: 180px;
+      height: auto;
+      aspect-ratio: 566 / 1200;
+      border-radius: 16px;
+      background: var(--c-bg-light);
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .features p {
+      color: var(--c-text-mid);
+    }
+
+    /* Stories */
+    .stories {
+      list-style: none;
+    }
+
+    .stories a {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+    }
+
+    .stories time {
+      flex: 0 0 auto;
+      color: var(--c-text-mid);
+      font-variant-numeric: tabular-nums;
+      font-size: calc(var(--f-size) * 0.889);
+    }
+
+    /* FAQ */
+    details + details {
+      margin-top: 0.5rem;
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      color: var(--c-text-strong);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      margin-left: auto;
+      color: var(--c-text-mid);
+    }
+
+    details[open] summary::after {
+      content: "–";
+    }
+
+    details p {
+      color: var(--c-text-mid);
+      padding-bottom: 0.5rem;
+    }
+
+    details p + p {
+      margin-top: 0.5rem;
+    }
+
+    .help {
+      margin-top: 1rem;
+    }
+
+    .help a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* App links + site footer */
+    .app-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 3rem;
+    }
+
+    .app-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      font-size: calc(var(--f-size) * 0.889);
+      line-height: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <iframe
-    src="https://jinhoe.notion.site/ebd/1fc45d686531817f9d23e2993f978041"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
+  <main>
+    <header class="hero">
+      <img class="icon" src="/zhebus/icon.png" alt="ZheBus app icon" width="112" height="112" />
+      <div class="body">
+        <h1>ZheBus</h1>
+        <p class="tagline">Singapore bus arrivals. Simplified.</p>
+        <a class="store" href="https://apps.apple.com/sg/app/zhebus/id6746260540">
+          <img src="/assets/app-store-badge.svg" alt="Download ZheBus on the App Store" width="120" height="40" />
+        </a>
+      </div>
+    </header>
+
+    <ul class="shots" aria-label="Screenshots">
+      <li><img src="/zhebus/screenshots/1.jpg" alt="Bus times. Right now. Live arrivals, bus type and seats, at a glance." width="566" height="1200" /></li>
+      <li><img src="/zhebus/screenshots/2.jpg" alt="Looks right day or night. The same calm, after dark." width="566" height="1200" loading="lazy" /></li>
+      <li><img src="/zhebus/screenshots/3.jpg" alt="Don't even unlock your phone. Your next bus, right on the Lock Screen." width="566" height="1200" loading="lazy" /></li>
+      <li><img src="/zhebus/screenshots/4.jpg" alt="Every stop. On a map you know. Tap a pin. See the next buses." width="566" height="1200" loading="lazy" /></li>
+      <li><img src="/zhebus/screenshots/5.jpg" alt="Search any stop. Any road. Every stop in Singapore. Found in seconds." width="566" height="1200" loading="lazy" /></li>
+      <li><img src="/zhebus/screenshots/6.jpg" alt="Know every stop ahead. The full route. Every connecting bus." width="566" height="1200" loading="lazy" /></li>
+    </ul>
+
+    <section aria-labelledby="about">
+      <h2 id="about">About</h2>
+      <p>ZheBus is your go-to app for tracking real-time bus arrivals across Singapore. Designed to be fast, accurate, and distraction-free, ZheBus helps you plan your journeys with confidence—whether you’re commuting daily or exploring the city.</p>
+      <p>Powered by live data from the Land Transport Authority (LTA), ZheBus gives you:</p>
+      <ul>
+        <li>Real-time bus arrival timings</li>
+        <li>Nearby bus stop detection</li>
+        <li>A minimal, clean interface that works day and night</li>
+        <li>Quick access to your regular bus services</li>
+      </ul>
+      <p>We believe that public transport should be easy to use and even easier to follow. That’s why ZheBus is built to highlight only the essential details—no clutter, no confusion.</p>
+    </section>
+
+    <section aria-labelledby="features">
+      <h2 id="features">Features</h2>
+      <div class="features">
+        <div>
+          <h3>Bus Status</h3>
+          <p>You can easily see bus timing, bus crowd levels and bus type, with color indicators for crowding and real-time or scheduled time info.</p>
+        </div>
+        <div>
+          <h3>Map</h3>
+          <p>You can tap any bus stop pin on the map to instantly see arriving buses and use the location button to automatically select the nearest bus stop.</p>
+        </div>
+        <div>
+          <h3>Search</h3>
+          <p>Find bus stops using a bus stop code, postal code, address, or place through a sleek, integrated search bar with Apple Maps-style design.</p>
+        </div>
+        <div>
+          <h3>Bookmarks</h3>
+          <p>Easily save your regular bus routes for quick access, making your daily commutes faster and easier.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="story">
+      <h2 id="story">The Story Behind the App</h2>
+      <ul class="stories">
+        <li><a href="https://jinhoe.notion.site/36d45d6865318009a01be55501e66475"><span>Redesign ZheBus 2.0 with Claude Design</span><time datetime="2026-05-27">2026·05</time></a></li>
+        <li><a href="https://jinhoe.notion.site/24f45d6865318001959ff09340d57d8c"><span>ZheBus 1.2 is live</span><time datetime="2025-08-14">2025·08</time></a></li>
+        <li><a href="https://jinhoe.notion.site/24d45d68653180c68af0ca4e5e1c4753"><span>Live Activity submitted for review</span><time datetime="2025-08-12">2025·08</time></a></li>
+        <li><a href="https://jinhoe.notion.site/22b45d68653180faa2adc3a3d0dddc48"><span>Damn it, Live Activity!</span><time datetime="2025-07-09">2025·07</time></a></li>
+        <li><a href="https://jinhoe.notion.site/21945d68653180748f7ee701506b9aea"><span>Liquid Glass app icon</span><time datetime="2025-06-21">2025·06</time></a></li>
+        <li><a href="https://jinhoe.notion.site/21a45d6865318095ac19fea5f95adc6e"><span>Improving ads layout</span><time datetime="2025-06-13">2025·06</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20845d68653180cda4d2e282cc24e79f"><span>ZheBus is LIVE!</span><time datetime="2025-06-04">2025·06</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20745d686531807f8b1aeb1df3f31797"><span>My app got approved!</span><time datetime="2025-06-03">2025·06</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20745d68653180e1b7e7fa93997c6eca"><span>How ZheBus got its name</span><time datetime="2025-05-24">2025·05</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d6865318013bab3c627c2ae2a5c"><span>Paid app or show ads?</span><time datetime="2025-05-02">2025·05</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d686531802ab77ce96355a26b10"><span>Designing the bus icon</span><time datetime="2025-04-24">2025·04</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d686531809492fdf6acc44a4d68"><span>Rebuild from scratch</span><time datetime="2025-04-17">2025·04</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d6865318002b2eec4cbcc057e34"><span>Competitive analysis</span><time datetime="2025-04-12">2025·04</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d68653180b2af1cd62df9aceb3d"><span>Momentum gone</span><time datetime="2025-03-23">2025·03</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d68653180ffa152c7bddee4a176"><span>Completing…</span><time datetime="2025-03-07">2025·03</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d686531808f86cacdfebe2ee8d9"><span>The first screenshot</span><time datetime="2025-02-18">2025·02</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d68653180be8116e7c6a0d23ce1"><span>My pain point</span><time datetime="2025-02-16">2025·02</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d6865318057ba4fe8499da12bf1"><span>Cursor</span><time datetime="2025-02-09">2025·02</time></a></li>
+        <li><a href="https://jinhoe.notion.site/20645d686531800dbdb8c881fd29d799"><span>Vibe coding</span><time datetime="2025-02-01">2025·02</time></a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="faq">
+      <h2 id="faq">FAQ</h2>
+      <details>
+        <summary>Why is the bus timing not always accurate?</summary>
+        <p>Bus timings in the app are based on data from LTA, which includes both real-time and scheduled estimates. Scheduled timings (shown in grey) are based on timetables and may be less accurate as the bus may not be GPS-tracked. Real-time data is usually reliable, but unexpected operational changes—like inserting an extra bus to ease crowding—can cause discrepancies even in live updates.</p>
+      </details>
+      <details>
+        <summary>Why did the app select the wrong bus stop?</summary>
+        <p>The app automatically selects the nearest bus stop based on your current location. However, if there are several nearby stops, the one chosen by the app might not be the one you expect. In such cases, simply tap your preferred bus stop on the map to select it manually.</p>
+      </details>
+      <details>
+        <summary>Why isn’t the nearest bus stop auto-selected?</summary>
+        <p>If you’ve manually tapped a bus stop on the map, the app will remember your selection for 15 minutes. During this time, it won’t auto-select the nearest stop. To reset and return to auto-selection, simply tap the current location button on the map.</p>
+      </details>
+      <details>
+        <summary>How does Live Activity work?</summary>
+        <p>Live Activity only works for buses from the same bus stop. Enabling it for a bus at a different stop will replace any Live Activity from the previous stop.</p>
+        <p>When multiple buses are enabled, the app will always show only the soonest arriving bus, updating in real time as timings change. You’ll receive an alert when that bus is arriving, and the Live Activity will automatically end once the bus has departed — assuming you’ve boarded.</p>
+      </details>
+      <details>
+        <summary>How do I enable or disable Live Activity?</summary>
+        <p>Swipe left on a bus number row and tap the bell icon to turn Live Activity on or off. You can also end it from the Lock Screen by swiping left and tapping <strong>Clear</strong>, or by swiping left fully.</p>
+      </details>
+      <details>
+        <summary>My bus stop is missing</summary>
+        <p>It’s likely there’s another bus stop nearby, and the app hides overlapping stops by default to keep the map clear. Simply zoom in on the map to reveal additional bus stops.</p>
+      </details>
+      <details>
+        <summary>In Live Activity I have enabled multiple buses. Why does it only show one?</summary>
+        <p>The Live Activity is designed to show only the bus that’s arriving the soonest, so you can focus on the one you’re most likely to catch.</p>
+      </details>
+      <details>
+        <summary>Why does the Live Activity dismiss itself?</summary>
+        <p>Once the soonest arriving bus has arrived and departed, the app assumes you’ve boarded and automatically ends the Live Activity — even if you had multiple buses enabled.</p>
+      </details>
+      <p class="help">Got a suggestion or spotted an issue? <a href="/zhebus/support/">Contact us</a>.</p>
+    </section>
+
+    <nav class="app-links" aria-label="ZheBus">
+      <a href="/zhebus/support/">Support</a>
+      <a href="/zhebus/privacy/">Privacy Policy</a>
+    </nav>
+
+    <footer>
+      <nav aria-label="Site">
+        <a href="https://jinhoe.com/">Home</a>
+        <a href="https://jinhoe.com/about">About</a>
+        <a href="https://app.jinhoe.com/">Apps</a>
+      </nav>
+    </footer>
+  </main>
 </body>
 </html>
