@@ -16,10 +16,7 @@
       --c-text: hsl(0, 0%, 25%);
       --c-text-strong: hsl(0, 0%, 15%);
       --c-text-mid: hsl(0, 0%, 35%);
-      --c-btn: hsl(0, 0%, 10%);
-      --c-btn-text: hsl(0, 0%, 100%);
       --f-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Palatino LT STD", Garamond, Baskerville, "Hoefler Text", "Times New Roman", serif;
-      --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --f-size: 16px;
       --f-lineheight: 27px;
     }
@@ -40,8 +37,6 @@
         --c-text: hsl(0, 0%, 82%);
         --c-text-strong: hsl(0, 0%, 92%);
         --c-text-mid: hsl(0, 0%, 62%);
-        --c-btn: hsl(0, 0%, 92%);
-        --c-btn-text: hsl(0, 0%, 10%);
       }
     }
 
@@ -164,20 +159,14 @@
       min-height: 44px;
     }
 
-    .store {
-      gap: 8px;
-      padding: 0 18px;
-      border-radius: 12px;
-      background: var(--c-btn);
-      color: var(--c-btn-text);
-      font-family: var(--f-sans);
-      font-size: 14px;
-      font-weight: 600;
+    .store img {
+      display: block;
+      height: 40px;
+      width: auto;
       transition: opacity 300ms ease-out;
     }
 
-    .store:hover {
-      color: var(--c-btn-text);
+    .store:hover img {
       opacity: 0.8;
     }
 
@@ -208,8 +197,7 @@
           <p>Singapore bus arrivals — and a filter that shows only the buses going where you're going.</p>
           <div class="actions">
             <a class="store" href="https://apps.apple.com/sg/app/zhebus/id6746260540">
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-              App Store
+              <img src="/assets/app-store-badge.svg" alt="Download ZheBus on the App Store" width="120" height="40" />
             </a>
             <a href="/zhebus/">Details →</a>
           </div>
