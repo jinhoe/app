@@ -3,29 +3,285 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KongQi App</title>
+  <meta name="description" content="Singapore's haze readings, without the clutter. The latest PSI and PM2.5 for your part of Singapore, right on your Home Screen and Lock Screen." />
+  <title>KongQi – Singapore Air Quality</title>
   <link rel="icon" href="/kongqi/favicon.png" type="image/png" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+    /* Tokens mirror jinhoe.com (assets/css/main.min.css) */
+    :root {
+      --c-bg: hsl(0, 0%, 100%);
+      --c-bg-light: hsl(0, 0%, 97%);
+      --c-tile: hsl(0, 0%, 89%);
+      --c-high: hsla(210, 100%, 60%, 0.3);
+      --c-high-light: hsla(210, 100%, 60%, 0.8);
+      --c-text: hsl(0, 0%, 25%);
+      --c-text-strong: hsl(0, 0%, 15%);
+      --c-text-mid: hsl(0, 0%, 35%);
+      --f-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Palatino LT STD", Garamond, Baskerville, "Hoefler Text", "Times New Roman", serif;
+      --f-size: 16px;
+      --f-lineheight: 27px;
     }
 
-    iframe {
-      border: none;
-      width: 100%;
-      height: 100%;
+    @media (min-width: 500px) {
+      :root { --f-size: 17px; --f-lineheight: 32px; }
+    }
+
+    @media (min-width: 768px) {
+      :root { --f-size: 18px; --f-lineheight: 34px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --c-bg: hsl(0, 0%, 10%);
+        --c-bg-light: hsl(0, 0%, 15%);
+        --c-tile: hsl(0, 0%, 22%);
+        --c-text: hsl(0, 0%, 82%);
+        --c-text-strong: hsl(0, 0%, 92%);
+        --c-text-mid: hsl(0, 0%, 62%);
+      }
+    }
+
+    /* Like jinhoe.com, 1rem = one line of body text */
+    html {
+      font-size: var(--f-lineheight);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: var(--c-high);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--c-high-light);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    body {
+      padding: 3rem 1rem 1.5rem;
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-family);
+      font-size: var(--f-size);
+      line-height: var(--f-lineheight);
+    }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 300ms ease-out;
+    }
+
+    a:hover {
+      color: var(--c-text-mid);
+    }
+
+    h1,
+    h2 {
+      color: var(--c-text-strong);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: calc(var(--f-size) * 1.6);
+      line-height: 1.3rem;
+    }
+
+    h2 {
+      font-size: calc(var(--f-size) * 1.3);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    section {
+      margin-top: 2.5rem;
+    }
+
+    section p + p {
+      margin-top: 0.5rem;
+    }
+
+    section ul {
+      padding-left: 1.25em;
+    }
+
+    /* Header */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero .icon {
+      flex: 0 0 112px;
+      width: 112px;
+      height: 112px;
+      border-radius: 25px;
+      background: var(--c-tile);
+    }
+
+    .hero .body {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
+
+    .tagline {
+      color: var(--c-text-mid);
+    }
+
+    /* Screenshots: swipeable row */
+    .shots {
+      display: flex;
+      gap: 12px;
+      margin-top: 2.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      list-style: none;
+    }
+
+    .shots::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shots li {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
+
+    .shots img {
       display: block;
+      width: 180px;
+      height: auto;
+      aspect-ratio: 552 / 1200;
+      border-radius: 16px;
+      background: var(--c-bg-light);
+    }
+
+    .note {
+      color: var(--c-text-mid);
+      font-size: calc(var(--f-size) * 0.889);
+    }
+
+    .note a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* App links + site footer */
+    .app-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 3rem;
+    }
+
+    .app-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      font-size: calc(var(--f-size) * 0.889);
+      line-height: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <iframe
-    src="https://jinhoe.notion.site/ebd//3f645d68653180ee816ccf8648d78d86"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
+  <main>
+    <header class="hero">
+      <img class="icon" src="/kongqi/icon.png" alt="KongQi app icon" width="112" height="112" />
+      <div class="body">
+        <h1>KongQi</h1>
+        <p class="tagline">Singapore's haze readings, without the clutter.</p>
+      </div>
+    </header>
+
+    <ul class="shots" aria-label="Screenshots">
+      <li><img src="/kongqi/screenshots/1.jpg" alt="Singapore's air, at a glance. Hourly PSI and PM2.5 from NEA, for where you are." width="552" height="1200" /></li>
+      <li><img src="/kongqi/screenshots/2.jpg" alt="Right on your Home Screen. Your region, or wherever you are." width="552" height="1200" loading="lazy" /></li>
+      <li><img src="/kongqi/screenshots/3.jpg" alt="Even on your Lock Screen. Know before you step outside." width="552" height="1200" loading="lazy" /></li>
+      <li><img src="/kongqi/screenshots/4.jpg" alt="Five regions. Twenty-four hours. Tap any region to see its trend." width="552" height="1200" loading="lazy" /></li>
+      <li><img src="/kongqi/screenshots/5.jpg" alt="Easy on the eyes, day or night. Light, dark, or follow your iPhone." width="552" height="1200" loading="lazy" /></li>
+    </ul>
+
+    <section aria-label="About">
+      <p>Is it hazy today? See the latest PSI and PM2.5 for your part of Singapore at a glance, right on your Home Screen and Lock Screen.</p>
+      <p>KongQi shows the official 24-hour PSI and 1-hour PM2.5 for Singapore's five regions (North, South, East, West and Central), updated every hour. Open the app and you see the reading for where you are. Add a widget and you don't need to open the app at all.</p>
+    </section>
+
+    <section aria-labelledby="glance">
+      <h2 id="glance">At a glance</h2>
+      <ul>
+        <li>24-hour PSI and 1-hour PM2.5 for the region nearest you</li>
+        <li>Plain-language bands, the same ones NEA uses: Good, Moderate, Unhealthy, Very unhealthy, Hazardous</li>
+        <li>24-hour trend bars to see whether the air is getting better or worse</li>
+        <li>All five regions side by side in one table. Tap any region to see its trend</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="widgets">
+      <h2 id="widgets">Widgets</h2>
+      <ul>
+        <li>Home Screen widget with PSI and PM2.5 for your region</li>
+        <li>Lock Screen widget so you can check the air before you unlock your phone</li>
+        <li>Each widget can follow your location or stay on a region you choose. Keep one for home and one for the office</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="simple">
+      <h2 id="simple">Simple by design</h2>
+      <ul>
+        <li>One screen. No maps, no ads, no account</li>
+        <li>Colour is used only for air quality, so the reading stands out at a glance</li>
+        <li>Light and dark mode</li>
+        <li>Your location is used only on your device, to pick the nearest region</li>
+      </ul>
+    </section>
+
+    <section aria-label="Use cases">
+      <p>Useful when you're deciding whether to go for a run, open the windows, bring the kids to the playground, or reach for an N95 mask.</p>
+    </section>
+
+    <section aria-label="Data source">
+      <p class="note">Data: National Environment Agency (NEA), via <a href="https://data.gov.sg/">data.gov.sg</a>. KongQi is an independent app and is not affiliated with or endorsed by NEA or the Singapore Government. For health advice during haze episodes, refer to NEA's official guidance.</p>
+      <p class="note">KongQi (空气) means "air" in Mandarin.</p>
+    </section>
+
+    <nav class="app-links" aria-label="KongQi">
+      <a href="/kongqi/support/">Support</a>
+      <a href="/kongqi/privacy/">Privacy Policy</a>
+    </nav>
+
+    <footer>
+      <nav aria-label="Site">
+        <a href="https://jinhoe.com/">Home</a>
+        <a href="https://jinhoe.com/about">About</a>
+        <a href="https://app.jinhoe.com/">Apps</a>
+      </nav>
+    </footer>
+  </main>
 </body>
 </html>
