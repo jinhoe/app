@@ -16,7 +16,8 @@
 <meta name="theme-color" content="#EBEAE6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#161615" media="(prefers-color-scheme: dark)">
 <link rel="preload" href="/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=ea62e6ed">
+<link rel="stylesheet" href="/assets/site.css?v=ad783632">
+<script src="/assets/site.js?v=5409264b" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -30,12 +31,20 @@
 <p class="eyebrow">Bus arrivals for Singapore</p>
 <h1 class="display">Singapore bus arrivals. Simplified.</h1>
 <p class="lead">Live timings from LTA for the stop you're standing at. Only the essential details: no clutter, no confusion.</p>
-<div class="cta"><a class="badge" href="https://apps.apple.com/sg/app/zhebus/id6746260540"><img src="/assets/app-store-badge.svg" alt="Download ZheBus on the App Store" width="144" height="48"></a><span class="mono muted">iPhone · Live Activities</span></div>
+<div class="cta"><a class="badge" href="https://apps.apple.com/sg/app/zhebus/id6746260540" target="_blank" rel="noopener"><img src="/assets/app-store-badge.svg" alt="Download ZheBus on the App Store" width="144" height="48"></a><span class="mono muted">iPhone · Live Activities</span></div>
 </div>
 <img class="app-icon-lg" src="/zhebus/icon.png" alt="ZheBus app icon" width="176" height="176">
 </section>
 
-<section class="shots" aria-label="Screenshots"><div class="wrap shots-track" tabindex="0">
+<section class="shots" aria-labelledby="shots-label" data-carousel>
+<div class="wrap shots-bar">
+<h2 class="mono" id="shots-label">Screenshots</h2>
+<div class="shots-nav" hidden>
+<button type="button" data-dir="-1" aria-label="Previous screenshots"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+<button type="button" data-dir="1" aria-label="Next screenshots"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+</div>
+</div>
+<div class="shots-track" tabindex="0" aria-label="Screenshots, scroll sideways for more">
 <img src="/zhebus/screenshots/1.jpg" alt="ZheBus screenshot 1 of 7" width="264" height="574">
 <img src="/zhebus/screenshots/2.jpg" alt="ZheBus screenshot 2 of 7" width="264" height="574">
 <img src="/zhebus/screenshots/3.jpg" alt="ZheBus screenshot 3 of 7" width="264" height="574">
@@ -43,7 +52,8 @@
 <img src="/zhebus/screenshots/5.jpg" alt="ZheBus screenshot 5 of 7" width="264" height="574" loading="lazy">
 <img src="/zhebus/screenshots/6.jpg" alt="ZheBus screenshot 6 of 7" width="264" height="574" loading="lazy">
 <img src="/zhebus/screenshots/7.jpg" alt="ZheBus screenshot 7 of 7" width="264" height="574" loading="lazy">
-</div></section>
+</div>
+</section>
 
 <section class="wrap block">
 <p class="statement">Public transport should be easy to use and even easier to follow. ZheBus finds the stop nearest you and shows what's arriving, how full it is, and what's coming next, whether you're commuting daily or exploring the city.</p>
@@ -73,31 +83,32 @@
 </section>
 
 <section class="wrap block" aria-labelledby="story">
-<h2 class="label" id="story">The story behind the app <a href="https://jinhoe.com/">jinhoe.com</a></h2>
+<h2 class="label" id="story">The story behind the app</h2>
+<p class="section-note">How ZheBus was made, from first idea to release. Posts open on my blog, jinhoe.com.</p>
 <ul class="posts">
-<li><a href="https://jinhoe.com/redesign-zhebus-2-with-claude-design/"><span>Redesign ZheBus 2.0 with Claude Design</span><time datetime="2026-05">2026·05</time></a></li>
-<li><a href="https://jinhoe.com/zhebus-1-2-is-live/"><span>ZheBus 1.2 is live</span><time datetime="2025-08">2025·08</time></a></li>
-<li><a href="https://jinhoe.com/live-activity-submitted-for-review/"><span>Live Activity submitted for review</span><time datetime="2025-08">2025·08</time></a></li>
+<li><a href="https://jinhoe.com/redesign-zhebus-2-with-claude-design/" target="_blank" rel="noopener"><span>Redesign ZheBus 2.0 with Claude Design</span><span class="post-meta"><time datetime="2026-05">2026·05</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/zhebus-1-2-is-live/" target="_blank" rel="noopener"><span>ZheBus 1.2 is live</span><span class="post-meta"><time datetime="2025-08">2025·08</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/live-activity-submitted-for-review/" target="_blank" rel="noopener"><span>Live Activity submitted for review</span><span class="post-meta"><time datetime="2025-08">2025·08</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
 </ul>
 <details class="more-posts">
 <summary>Show 16 earlier posts</summary>
 <ul class="posts">
-<li><a href="https://jinhoe.com/damn-it-live-activity/"><span>Damn it, Live Activity!</span><time datetime="2025-07">2025·07</time></a></li>
-<li><a href="https://jinhoe.com/liquid-glass-app-icon/"><span>Liquid Glass app icon</span><time datetime="2025-06">2025·06</time></a></li>
-<li><a href="https://jinhoe.com/improving-ads-layout/"><span>Improving ads layout</span><time datetime="2025-06">2025·06</time></a></li>
-<li><a href="https://jinhoe.com/zhebus-is-live/"><span>ZheBus is LIVE!</span><time datetime="2025-06">2025·06</time></a></li>
-<li><a href="https://jinhoe.com/my-app-got-approved/"><span>My app got approved!</span><time datetime="2025-06">2025·06</time></a></li>
-<li><a href="https://jinhoe.com/how-zhebus-got-its-name/"><span>How ZheBus got its name</span><time datetime="2025-05">2025·05</time></a></li>
-<li><a href="https://jinhoe.com/paid-app-or-show-ads/"><span>Paid app or show ads?</span><time datetime="2025-05">2025·05</time></a></li>
-<li><a href="https://jinhoe.com/designing-the-bus-icon/"><span>Designing the bus icon</span><time datetime="2025-04">2025·04</time></a></li>
-<li><a href="https://jinhoe.com/rebuild-from-scratch/"><span>Rebuild from scratch</span><time datetime="2025-04">2025·04</time></a></li>
-<li><a href="https://jinhoe.com/competitive-analysis/"><span>Competitive analysis</span><time datetime="2025-04">2025·04</time></a></li>
-<li><a href="https://jinhoe.com/momentum-gone/"><span>Momentum gone</span><time datetime="2025-03">2025·03</time></a></li>
-<li><a href="https://jinhoe.com/completing/"><span>Completing…</span><time datetime="2025-03">2025·03</time></a></li>
-<li><a href="https://jinhoe.com/the-first-screenshot/"><span>The first screenshot</span><time datetime="2025-02">2025·02</time></a></li>
-<li><a href="https://jinhoe.com/my-pain-point/"><span>My pain point</span><time datetime="2025-02">2025·02</time></a></li>
-<li><a href="https://jinhoe.com/cursor/"><span>Cursor</span><time datetime="2025-02">2025·02</time></a></li>
-<li><a href="https://jinhoe.com/vibe-coding/"><span>Vibe coding</span><time datetime="2025-02">2025·02</time></a></li>
+<li><a href="https://jinhoe.com/damn-it-live-activity/" target="_blank" rel="noopener"><span>Damn it, Live Activity!</span><span class="post-meta"><time datetime="2025-07">2025·07</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/liquid-glass-app-icon/" target="_blank" rel="noopener"><span>Liquid Glass app icon</span><span class="post-meta"><time datetime="2025-06">2025·06</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/improving-ads-layout/" target="_blank" rel="noopener"><span>Improving ads layout</span><span class="post-meta"><time datetime="2025-06">2025·06</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/zhebus-is-live/" target="_blank" rel="noopener"><span>ZheBus is LIVE!</span><span class="post-meta"><time datetime="2025-06">2025·06</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/my-app-got-approved/" target="_blank" rel="noopener"><span>My app got approved!</span><span class="post-meta"><time datetime="2025-06">2025·06</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/how-zhebus-got-its-name/" target="_blank" rel="noopener"><span>How ZheBus got its name</span><span class="post-meta"><time datetime="2025-05">2025·05</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/paid-app-or-show-ads/" target="_blank" rel="noopener"><span>Paid app or show ads?</span><span class="post-meta"><time datetime="2025-05">2025·05</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/designing-the-bus-icon/" target="_blank" rel="noopener"><span>Designing the bus icon</span><span class="post-meta"><time datetime="2025-04">2025·04</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/rebuild-from-scratch/" target="_blank" rel="noopener"><span>Rebuild from scratch</span><span class="post-meta"><time datetime="2025-04">2025·04</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/competitive-analysis/" target="_blank" rel="noopener"><span>Competitive analysis</span><span class="post-meta"><time datetime="2025-04">2025·04</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/momentum-gone/" target="_blank" rel="noopener"><span>Momentum gone</span><span class="post-meta"><time datetime="2025-03">2025·03</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/completing/" target="_blank" rel="noopener"><span>Completing…</span><span class="post-meta"><time datetime="2025-03">2025·03</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/the-first-screenshot/" target="_blank" rel="noopener"><span>The first screenshot</span><span class="post-meta"><time datetime="2025-02">2025·02</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/my-pain-point/" target="_blank" rel="noopener"><span>My pain point</span><span class="post-meta"><time datetime="2025-02">2025·02</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/cursor/" target="_blank" rel="noopener"><span>Cursor</span><span class="post-meta"><time datetime="2025-02">2025·02</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
+<li><a href="https://jinhoe.com/vibe-coding/" target="_blank" rel="noopener"><span>Vibe coding</span><span class="post-meta"><time datetime="2025-02">2025·02</time><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens jinhoe.com in a new tab)</span></span></a></li>
 </ul>
 </details>
 <p class="note">Bus data: Land Transport Authority (LTA) DataMall.</p>
@@ -110,10 +121,7 @@
 <a href="/zhebus/support/">Support</a>
 <a href="/zhebus/privacy/">Privacy</a>
 </div>
-<div class="footer-links mono">
-<a href="/">app.jinhoe.com</a>
-<a href="https://jinhoe.com/">jinhoe.com</a>
-</div>
+<a class="mono" href="/">All apps by Jinhoe</a>
 </div></footer>
 </body>
 </html>

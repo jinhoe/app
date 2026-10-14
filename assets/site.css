@@ -80,6 +80,7 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
 .muted { color: var(--muted); }
 .block { padding-top: var(--gap); }
 
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .skip { position: absolute; left: -9999px; top: 8px; padding: 8px 14px; background: var(--text); color: var(--bg); border-radius: 8px; z-index: 10; }
 .skip:focus { left: 8px; }
 
@@ -107,8 +108,6 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
 .site-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 24px; }
 .wordmark { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; text-decoration: none; padding-block: 10px; }
 .wordmark span { color: var(--muted); font-weight: 500; }
-.ext { display: flex; align-items: center; gap: 6px; text-decoration: none; padding-block: 12px; }
-.ext:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 .site-footer { margin-top: var(--gap); border-top: 1px solid var(--line); }
 .site-footer .wrap {
@@ -121,7 +120,6 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
 .footer-app { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 20px; font-family: var(--sans); font-size: 15px; color: var(--text-2); }
 .footer-app .brand { font-size: 15px; color: var(--text); }
 .footer-app .brand img { width: 24px; height: 24px; border-radius: 6px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
 
 /* ---------- home ---------- */
 
@@ -142,15 +140,20 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
 @media (prefers-color-scheme: dark) {
   .card { --tint: color-mix(in oklab, var(--accent) 24%, var(--surface)); }
 }
+.card-shot { margin-top: auto; }
+@supports (grid-template-rows: subgrid) {
+  .card { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+  .card-shot { margin-top: 0; }
+}
 .card:hover { border-color: var(--line); transform: translateY(-2px); }
 .card:hover .card-head svg { transform: translateX(3px); }
 .card-head { display: flex; align-items: center; gap: 18px; padding: 28px 28px 0; }
 .card-head img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 0 0 1px var(--line-2); flex: none; }
 .card-head h3 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
 .card-head svg { margin-left: auto; flex: none; transition: transform .2s; }
-.card p { padding: 20px 28px 0; font-size: 17px; line-height: 1.5; color: var(--text-2); text-wrap: pretty; }
+.card p { padding: 20px 28px 28px; font-size: 17px; line-height: 1.5; color: var(--text-2); text-wrap: pretty; }
 .card-shot {
-  margin-top: 28px; height: 300px; overflow: hidden; background: var(--tint);
+  height: 300px; overflow: hidden; background: var(--tint);
   display: flex; justify-content: center; align-items: flex-start; padding-top: 36px;
 }
 .card-shot img { width: 236px; border-radius: 18px; box-shadow: 0 24px 48px -24px rgba(0, 0, 0, .35); }
@@ -199,11 +202,29 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
 .cta { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 20px; margin-top: 36px; }
 .badge img { height: 48px; width: auto; }
 
-.shots { background: var(--tint); }
-.shots-track {
-  display: flex; gap: 20px; padding-block: 56px;
-  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin;
+.shots {
+  /* left edge lines up with the page content; the track bleeds off the right edge so the next screenshot peeks in */
+  --edge: max(var(--pad), calc((100% - var(--wrap)) / 2 + var(--pad)));
+  background: var(--tint);
 }
+.shots-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 40px; min-height: 84px; }
+.shots-bar h2 { font-weight: 500; color: var(--accent-text); }
+.shots-nav { display: flex; gap: 8px; }
+.shots-nav[hidden] { display: none; }
+.shots-nav button {
+  width: 44px; height: 44px; display: grid; place-items: center; padding: 0;
+  border-radius: 999px; cursor: pointer; color: var(--text);
+  border: 1px solid color-mix(in oklab, var(--accent-text) 28%, transparent);
+  background: color-mix(in oklab, var(--bg) 55%, transparent);
+  transition: background-color .15s, opacity .15s;
+}
+.shots-nav button:hover:not(:disabled) { background: var(--bg); }
+.shots-nav button:disabled { opacity: .35; cursor: default; }
+.shots-track {
+  display: flex; gap: 20px; padding: 24px var(--edge) 56px; scroll-padding-inline: var(--edge);
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.shots-track::-webkit-scrollbar { display: none; }
 .shots-track img {
   flex: none; width: 264px; border-radius: 20px; scroll-snap-align: start;
   box-shadow: 0 24px 48px -28px rgba(0, 0, 0, .4);
@@ -229,9 +250,11 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
 .posts { list-style: none; padding: 0; margin-top: 8px; }
 .posts li { border-bottom: 1px solid var(--line-2); }
 .posts a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-block: 20px; text-decoration: none; }
-.posts a span:first-child { font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
-.posts a:hover span:first-child { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-.posts time { flex: none; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.posts a > span:first-child { font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
+.posts a:hover > span:first-child { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.posts .post-meta { flex: none; display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.posts a:hover .post-meta { color: var(--text); }
+.section-note { margin-top: 16px; font-size: 15px; color: var(--muted); }
 .more-posts summary { list-style: none; cursor: pointer; padding-block: 20px; font-family: var(--mono); font-size: 13px; color: var(--accent-text); }
 .more-posts summary::-webkit-details-marker { display: none; }
 .more-posts[open] summary { display: none; }

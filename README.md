@@ -7,7 +7,7 @@ _src/apps.json              app list: name, accent colour, App Store link, scree
 _src/layout.html            page shell
 _src/home.html              hub page body
 _src/<slug>/*.html          overview, support and privacy bodies per app
-assets/site.css             all styles (light/dark follow the system)
+assets/site.css, site.js   styles (light/dark follow the system) and the screenshot carousel
 <slug>/icon.png, favicon.png, screenshots/N.jpg
 ```
 

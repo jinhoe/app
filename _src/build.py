@@ -12,6 +12,8 @@ put icon.png, favicon.png and screenshots/N.jpg in /<slug>/, then rebuild.
 """
 import hashlib
 import json
+import re
+from datetime import date
 from html import escape
 from pathlib import Path
 from string import Template
@@ -23,6 +25,7 @@ DATA = json.loads((SRC / "apps.json").read_text(encoding="utf-8"))
 SITE, APPS = DATA["site"], DATA["apps"]
 LAYOUT = Template((SRC / "layout.html").read_text(encoding="utf-8"))
 CSS_VERSION = hashlib.sha256((ROOT / "assets/site.css").read_bytes()).hexdigest()[:8]
+JS_VERSION = hashlib.sha256((ROOT / "assets/site.js").read_bytes()).hexdigest()[:8]
 
 # (path segment, nav label, fragment name)
 PAGES = (("", "Overview", "overview"), ("support", "Support", "support"), ("privacy", "Privacy", "privacy"))
@@ -31,16 +34,29 @@ ICON = '<svg width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="cu
 ARROW_OUT = ICON.format(s=14, w=2, d='<path d="M7 17 17 7"/><path d="M8 7h9v9"/>')
 ARROW_BACK = ICON.format(s=14, w=2, d='<path d="M19 12H5"/><path d="m11 18-6-6 6-6"/>')
 ARROW_NEXT = ICON.format(s=22, w=1.75, d='<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>')
+CHEVRON_L = ICON.format(s=18, w=2, d='<path d="m15 18-6-6 6-6"/>')
+CHEVRON_R = ICON.format(s=18, w=2, d='<path d="m9 18 6-6-6-6"/>')
 
 
 def fragment(path, **values):
     return Template((SRC / path).read_text(encoding="utf-8")).safe_substitute(values)
 
 
+def external_in_new_tab(page):
+    """Links that leave app.jinhoe.com open in a new tab."""
+    return re.sub(
+        r'<a ([^>]*?)href="(https?://[^"]+)"',
+        lambda m: m.group(0) if m.group(2).startswith(SITE["url"]) or "target=" in m.group(1)
+        else f'<a {m.group(1)}href="{m.group(2)}" target="_blank" rel="noopener"',
+        page,
+    )
+
+
 def write(rel, **values):
     out = ROOT / rel / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(LAYOUT.substitute(version=CSS_VERSION, **values), encoding="utf-8")
+    page = LAYOUT.substitute(version=CSS_VERSION, js_version=JS_VERSION, **values)
+    out.write_text(external_in_new_tab(page), encoding="utf-8")
     print("wrote", out.relative_to(ROOT))
 
 
@@ -51,16 +67,14 @@ def url(path):
 # ---------- hub ----------
 
 def hub_header():
-    return f"""<header class="wrap site-header">
+    return """<header class="wrap site-header">
 <a class="wordmark" href="/">jinhoe<span>/apps</span></a>
-<a class="mono ext" href="{SITE['home']}">jinhoe.com{ARROW_OUT}</a>
 </header>"""
 
 
 def hub_footer():
     return f"""<footer class="site-footer"><div class="wrap">
-<span>© {escape(SITE['author'])}</span>
-<a href="{SITE['home']}">jinhoe.com</a>
+<span>© {date.today().year} {escape(SITE['author'])}</span>
 </div></footer>"""
 
 
@@ -86,7 +100,7 @@ def build_home():
         canonical=url("/"),
         head_extra="",
         header=hub_header(),
-        content=fragment("home.html", cards="\n".join(card(a) for a in APPS), count=f"{len(APPS):02d}"),
+        content=fragment("home.html", cards="\n".join(card(a) for a in APPS)),
         footer=hub_footer(),
     )
 
@@ -114,10 +128,7 @@ def app_footer(app):
 <a href="/{s}/support/">Support</a>
 <a href="/{s}/privacy/">Privacy</a>
 </div>
-<div class="footer-links mono">
-<a href="/">app.jinhoe.com</a>
-<a href="{SITE['home']}">jinhoe.com</a>
-</div>
+<a class="mono" href="/">All apps by {escape(SITE['author'])}</a>
 </div></footer>"""
 
 
@@ -135,7 +146,18 @@ def shots(app):
         f'<img src="/{s}/screenshots/{i}.jpg" alt="{name} screenshot {i} of {n}" width="264" height="574"{lazy if i > 3 else ""}>'
         for i in range(1, n + 1)
     )
-    return f'<section class="shots" aria-label="Screenshots"><div class="wrap shots-track" tabindex="0">\n{imgs}\n</div></section>'
+    return f"""<section class="shots" aria-labelledby="shots-label" data-carousel>
+<div class="wrap shots-bar">
+<h2 class="mono" id="shots-label">Screenshots</h2>
+<div class="shots-nav" hidden>
+<button type="button" data-dir="-1" aria-label="Previous screenshots">{CHEVRON_L}</button>
+<button type="button" data-dir="1" aria-label="Next screenshots">{CHEVRON_R}</button>
+</div>
+</div>
+<div class="shots-track" tabindex="0" aria-label="Screenshots, scroll sideways for more">
+{imgs}
+</div>
+</section>"""
 
 
 def build_app(app):
