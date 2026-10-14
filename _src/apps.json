@@ -1,0 +1,34 @@
+{
+  "site": {
+    "url": "https://app.jinhoe.com",
+    "author": "Jinhoe",
+    "home": "https://jinhoe.com/",
+    "title": "Apps – Jinhoe",
+    "description": "Small, focused apps I build to fix little annoyances in my everyday life in Singapore.",
+    "support_form": "https://docs.google.com/forms/d/e/1FAIpQLSdnEh7TbwlGBtjqpH4cPXgq5r2spxU6x6b9eSZd9DIKHdOevg/viewform?usp=pp_url&entry.214184820="
+  },
+  "apps": [
+    {
+      "slug": "kongqi",
+      "name": "KongQi",
+      "accent": "#E0406A",
+      "platforms": "iPhone · Widgets",
+      "summary": "Singapore's air quality at a glance, straight from NEA.",
+      "title": "KongQi – Singapore Air Quality",
+      "description": "Singapore's haze readings, without the clutter. The latest PSI and PM2.5 for your part of Singapore, right on your Home Screen and Lock Screen.",
+      "app_store": "",
+      "screenshots": 5
+    },
+    {
+      "slug": "zhebus",
+      "name": "ZheBus",
+      "accent": "#3F6F87",
+      "platforms": "iPhone · Live Activities",
+      "summary": "A simple Singapore bus arrival app with only what you need.",
+      "title": "ZheBus – Singapore Bus Arrivals",
+      "description": "Singapore bus arrivals. Simplified. Real-time timings, nearby stops and Live Activities, with no clutter.",
+      "app_store": "https://apps.apple.com/sg/app/zhebus/id6746260540",
+      "screenshots": 7
+    }
+  ]
+}
