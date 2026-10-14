@@ -21,7 +21,8 @@ for (const root of document.querySelectorAll("[data-carousel]")) {
   update();
 }
 
-// Appearance toggle: light → dark → auto, remembered per visitor (same as jinhoe.com).
+// Appearance toggle: light → dark → auto (same as jinhoe.com).
+// One setting for both sites: saved in a "theme" cookie on .jinhoe.com.
 (function () {
   const root = document.documentElement;
   const order = ["light", "dark", "auto"];
@@ -30,6 +31,19 @@ for (const root of document.querySelectorAll("[data-carousel]")) {
   const metas = document.querySelectorAll('meta[name="theme-color"]');
   const current = () => (order.includes(root.dataset.theme) ? root.dataset.theme : "auto");
   const next = (m) => order[(order.indexOf(m) + 1) % order.length];
+
+  const saved = () => {
+    const m = document.cookie.match(/(?:^|; )theme=(light|dark|auto)(?:;|$)/);
+    if (m) return m[1];
+    try { return localStorage.getItem("theme"); } catch (e) { return null; }
+  };
+
+  const save = (m) => {
+    const shared = /(^|\.)jinhoe\.com$/.test(location.hostname) ? "; domain=jinhoe.com" : "";
+    const secure = location.protocol === "https:" ? "; secure" : "";
+    document.cookie = `theme=${m}; path=/; max-age=31536000; samesite=lax${shared}${secure}`;
+    try { localStorage.setItem("theme", m); } catch (e) {}
+  };
 
   const sync = () => {
     const m = current();
@@ -46,9 +60,16 @@ for (const root of document.querySelectorAll("[data-carousel]")) {
     btn.addEventListener("click", () => {
       const m = next(current());
       root.dataset.theme = m;
-      try { localStorage.setItem("theme", m); } catch (e) {}
+      save(m);
       sync();
     });
   }
+
+  // Coming back via the back button (or from the other site) restores a cached page: re-read the setting.
+  addEventListener("pageshow", (e) => {
+    const m = saved();
+    if (e.persisted && order.includes(m) && m !== current()) { root.dataset.theme = m; sync(); }
+  });
+
   sync();
 })();

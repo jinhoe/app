@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <script>
-// Apply saved appearance before first paint (light | dark | auto)
+// Apply saved appearance before first paint (light | dark | auto).
+// Shared with jinhoe.com via a "theme" cookie on .jinhoe.com; localStorage is the fallback.
 (function () {
-  var t = "auto";
-  try { t = localStorage.getItem("theme") || "auto"; } catch (e) {}
+  var t = (document.cookie.match(/(?:^|; )theme=(light|dark|auto)(?:;|$)/) || [])[1];
+  if (!t) try { t = localStorage.getItem("theme"); } catch (e) {}
   if (["light", "dark", "auto"].indexOf(t) < 0) t = "auto";
   document.documentElement.setAttribute("data-theme", t);
 })();
@@ -25,7 +26,7 @@
 <meta name="theme-color" content="#161615" media="(prefers-color-scheme: dark)">
 <link rel="preload" href="/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css?v=9f3de66e">
-<script src="/assets/site.js?v=fbfb2b2e" defer></script>
+<script src="/assets/site.js?v=a69e539b" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
