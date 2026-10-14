@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>
+// Apply saved appearance before first paint (light | dark | auto)
+(function () {
+  var t = "auto";
+  try { t = localStorage.getItem("theme") || "auto"; } catch (e) {}
+  if (["light", "dark", "auto"].indexOf(t) < 0) t = "auto";
+  document.documentElement.setAttribute("data-theme", t);
+})();
+</script>
 <title>$title</title>
 <meta name="description" content="$description">
 <link rel="canonical" href="$canonical">

@@ -32,8 +32,11 @@
   --border: #DCDAD4;
   --hover: rgba(27, 27, 25, 0.06);
   --accent: #5E5D58;
-  --tint: color-mix(in oklab, var(--accent) 14%, var(--bg));
-  --accent-text: color-mix(in oklab, var(--accent), #000 30%);
+  --tint-mix: 14%;
+  --card-mix: 14%;
+  --shade: #000 30%;
+  --tint: color-mix(in oklab, var(--accent) var(--tint-mix), var(--bg));
+  --accent-text: color-mix(in oklab, var(--accent), var(--shade));
   --sans: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --wrap: 1120px;
@@ -41,8 +44,26 @@
   --gap: clamp(72px, 10vw, 128px);
 }
 
+/* Dark: chosen with the appearance toggle, or following the system when set to Auto.
+   Same data-theme / localStorage("theme") convention as jinhoe.com. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #161615;
+  --surface: #1F1F1D;
+  --text: #ECEBE6;
+  --text-2: #C9C7C0;
+  --muted: #9C9A93;
+  --line: #34332F;
+  --line-2: #2A2927;
+  --border: #2E2D2A;
+  --hover: rgba(236, 235, 230, 0.07);
+  --tint-mix: 22%;
+  --card-mix: 24%;
+  --shade: #fff 35%;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
     --bg: #161615;
     --surface: #1F1F1D;
     --text: #ECEBE6;
@@ -52,8 +73,9 @@
     --line-2: #2A2927;
     --border: #2E2D2A;
     --hover: rgba(236, 235, 230, 0.07);
-    --tint: color-mix(in oklab, var(--accent) 22%, var(--bg));
-    --accent-text: color-mix(in oklab, var(--accent), #fff 35%);
+    --tint-mix: 22%;
+    --card-mix: 24%;
+    --shade: #fff 35%;
   }
 }
 
@@ -103,6 +125,21 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
   font-weight: 500; letter-spacing: -0.02em; text-wrap: pretty;
 }
 
+/* ---------- appearance toggle (hidden until JS has set data-theme) ---------- */
+
+.theme-toggle {
+  display: none; flex: none; width: 44px; height: 44px; padding: 0; margin-right: -12px;
+  align-items: center; justify-content: center;
+  border: 0; background: none; color: var(--muted); cursor: pointer;
+}
+.theme-toggle:hover { color: var(--text); }
+html[data-theme] .theme-toggle { display: flex; }
+.theme-icon { display: none; }
+html[data-theme="light"] .theme-icon-light,
+html[data-theme="dark"] .theme-icon-dark,
+html[data-theme="auto"] .theme-icon-auto { display: block; }
+.app-nav .theme-toggle { margin-left: 4px; }
+
 /* ---------- hub header / footer ---------- */
 
 .site-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 24px; }
@@ -132,13 +169,10 @@ h1, h2, h3, p, ul, ol, dl, dd, blockquote { margin: 0; }
   grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
 }
 .card {
-  --tint: color-mix(in oklab, var(--accent) 14%, var(--surface));
+  --tint: color-mix(in oklab, var(--accent) var(--card-mix), var(--surface));
   display: flex; flex-direction: column; overflow: hidden;
   background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
   text-decoration: none; transition: border-color .2s, transform .2s;
-}
-@media (prefers-color-scheme: dark) {
-  .card { --tint: color-mix(in oklab, var(--accent) 24%, var(--surface)); }
 }
 .card-shot { margin-top: auto; }
 @supports (grid-template-rows: subgrid) {

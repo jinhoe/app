@@ -20,3 +20,35 @@ for (const root of document.querySelectorAll("[data-carousel]")) {
   addEventListener("resize", update);
   update();
 }
+
+// Appearance toggle: light → dark → auto, remembered per visitor (same as jinhoe.com).
+(function () {
+  const root = document.documentElement;
+  const order = ["light", "dark", "auto"];
+  const names = { light: "Light", dark: "Dark", auto: "Auto" };
+  const colors = { light: "#EBEAE6", dark: "#161615" };
+  const metas = document.querySelectorAll('meta[name="theme-color"]');
+  const current = () => (order.includes(root.dataset.theme) ? root.dataset.theme : "auto");
+  const next = (m) => order[(order.indexOf(m) + 1) % order.length];
+
+  const sync = () => {
+    const m = current();
+    const text = `Appearance: ${names[m]}. Switch to ${names[next(m)]}`;
+    for (const btn of document.querySelectorAll(".theme-toggle")) {
+      btn.setAttribute("aria-label", text);
+      btn.title = text;
+    }
+    // Keep the browser toolbar colour in step with a forced theme.
+    metas.forEach((meta, i) => meta.setAttribute("content", m === "auto" ? Object.values(colors)[i] : colors[m]));
+  };
+
+  for (const btn of document.querySelectorAll(".theme-toggle")) {
+    btn.addEventListener("click", () => {
+      const m = next(current());
+      root.dataset.theme = m;
+      try { localStorage.setItem("theme", m); } catch (e) {}
+      sync();
+    });
+  }
+  sync();
+})();

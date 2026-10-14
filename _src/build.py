@@ -35,6 +35,12 @@ ARROW_OUT = ICON.format(s=14, w=2, d='<path d="M7 17 17 7"/><path d="M8 7h9v9"/>
 ARROW_BACK = ICON.format(s=14, w=2, d='<path d="M19 12H5"/><path d="m11 18-6-6 6-6"/>')
 ARROW_NEXT = ICON.format(s=22, w=1.75, d='<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>')
 CHEVRON_L = ICON.format(s=18, w=2, d='<path d="m15 18-6-6 6-6"/>')
+# Appearance toggle, same icons and behaviour as jinhoe.com (light → dark → auto).
+THEME_TOGGLE = """<button type="button" class="theme-toggle" aria-label="Appearance">
+<svg class="theme-icon theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+<svg class="theme-icon theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+<svg class="theme-icon theme-icon-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+</button>"""
 CHEVRON_R = ICON.format(s=18, w=2, d='<path d="m9 18 6-6-6-6"/>')
 
 
@@ -67,8 +73,9 @@ def url(path):
 # ---------- hub ----------
 
 def hub_header():
-    return """<header class="wrap site-header">
+    return f"""<header class="wrap site-header">
 <a class="wordmark" href="/">jinhoe<span>/apps</span></a>
+{THEME_TOGGLE}
 </header>"""
 
 
@@ -116,7 +123,7 @@ def app_header(app, current):
     )
     return f"""<header class="app-header"><div class="wrap">
 <a class="brand" href="/{s}/"><img src="/{s}/icon.png" alt="" width="34" height="34">{name}</a>
-<nav class="app-nav" aria-label="{name}">{links}<span class="sep" aria-hidden="true"></span><a class="back" href="/">{ARROW_BACK}All apps</a></nav>
+<nav class="app-nav" aria-label="{name}">{links}<span class="sep" aria-hidden="true"></span><a class="back" href="/">{ARROW_BACK}All apps</a>{THEME_TOGGLE}</nav>
 </div></header>"""
 
 
