@@ -12,12 +12,14 @@
       "slug": "kongqi",
       "name": "KongQi",
       "accent": "#E0406A",
-      "platforms": "iPhone · Widgets",
+      "platforms": "iPhone · Mac · Widgets",
       "summary": "Singapore's air quality at a glance, straight from NEA.",
       "title": "KongQi – Singapore Air Quality",
-      "description": "Singapore's haze readings, without the clutter. The latest PSI and PM2.5 for your part of Singapore, right on your Home Screen and Lock Screen.",
+      "description": "Singapore's haze readings, without the clutter. The latest PSI and PM2.5 for your part of Singapore, right on your Home Screen, Lock Screen and Mac desktop.",
       "app_store": "",
-      "screenshots": 5
+      "mac_app_store": "",
+      "screenshots": 5,
+      "mac_screenshots": 4
     },
     {
       "slug": "zhebus",

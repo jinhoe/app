@@ -263,6 +263,7 @@ html[data-theme="auto"] .theme-icon-auto { display: block; }
   flex: none; width: 264px; border-radius: 20px; scroll-snap-align: start;
   box-shadow: 0 24px 48px -28px rgba(0, 0, 0, .4);
 }
+.shots-track img.wide { width: min(560px, 84vw); border-radius: 14px; }
 
 .features {
   display: grid; gap: 48px 40px;

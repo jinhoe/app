@@ -9,6 +9,7 @@ them as-is. Standard library only. Jekyll ignores _src/ (leading underscore).
 
 Add an app: append it to apps.json, add _src/<slug>/{overview,support,privacy}.html,
 put icon.png, favicon.png and screenshots/N.jpg in /<slug>/, then rebuild.
+Mac screenshots (optional): screenshots/mac/N.jpg, 1200×750 (shown at 560 wide), with mac_screenshots in apps.json.
 """
 import hashlib
 import json
@@ -140,31 +141,48 @@ def app_footer(app):
 
 
 def badge(app):
-    if not app.get("app_store"):
-        return ""
-    return (f'<a class="badge" href="{app["app_store"]}">'
-            f'<img src="/assets/app-store-badge.svg" alt="Download {escape(app["name"])} on the App Store" width="144" height="48"></a>')
+    stores = (("app_store", "app-store-badge.svg", "the App Store", 144),
+              ("mac_app_store", "mac-app-store-badge.svg", "the Mac App Store", 187))
+    return "".join(
+        f'<a class="badge" href="{app[key]}">'
+        f'<img src="/assets/{svg}" alt="Download {escape(app["name"])} on {store}" width="{w}" height="48"></a>'
+        for key, svg, store, w in stores if app.get(key)
+    )
 
 
-def shots(app):
-    s, n, name = app["slug"], app["screenshots"], escape(app["name"])
+def carousel(app, n, folder, platform, size, cls=""):
+    s, name = app["slug"], escape(app["name"])
+    w, h = size
     lazy = ' loading="lazy"'
+    label = platform or "Screenshots"
+    what = f"{platform} screenshots" if platform else "Screenshots"
+    alt = f"{name} {platform} screenshot" if platform else f"{name} screenshot"
     imgs = "\n".join(
-        f'<img src="/{s}/screenshots/{i}.jpg" alt="{name} screenshot {i} of {n}" width="264" height="574"{lazy if i > 3 else ""}>'
+        f'<img{cls} src="/{s}/screenshots/{folder}{i}.jpg" alt="{alt} {i} of {n}" width="{w}" height="{h}"{lazy if folder or i > 3 else ""}>'
         for i in range(1, n + 1)
     )
-    return f"""<section class="shots" aria-labelledby="shots-label" data-carousel>
+    hid = f"shots-{folder.rstrip('/') or 'label'}"
+    return f"""<section class="shots" aria-labelledby="{hid}" data-carousel>
 <div class="wrap shots-bar">
-<h2 class="mono" id="shots-label">Screenshots</h2>
+<h2 class="mono" id="{hid}">{label}</h2>
 <div class="shots-nav" hidden>
 <button type="button" data-dir="-1" aria-label="Previous screenshots">{CHEVRON_L}</button>
 <button type="button" data-dir="1" aria-label="Next screenshots">{CHEVRON_R}</button>
 </div>
 </div>
-<div class="shots-track" tabindex="0" aria-label="Screenshots, scroll sideways for more">
+<div class="shots-track" tabindex="0" aria-label="{what}, scroll sideways for more">
 {imgs}
 </div>
 </section>"""
+
+
+def shots(app):
+    """iPhone screenshots/N.jpg; Mac screenshots/mac/N.jpg (16:10) when mac_screenshots is set."""
+    mac = app.get("mac_screenshots", 0)
+    out = carousel(app, app["screenshots"], "", "iPhone" if mac else "", (264, 574))
+    if mac:
+        out += "\n" + carousel(app, mac, "mac/", "Mac", (560, 350), ' class="wide"')
+    return out
 
 
 def build_app(app):
