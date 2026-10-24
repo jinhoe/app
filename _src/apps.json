@@ -9,6 +9,18 @@
   },
   "apps": [
     {
+      "slug": "multiply",
+      "name": "Multiply",
+      "accent": "#4A49A0",
+      "platforms": "iPhone · iPad",
+      "summary": "Times tables practice for kids, one handwritten answer at a time.",
+      "title": "Multiply – Times Tables for Kids",
+      "description": "A space-themed times tables game for kids. Write each answer by hand, find the tricky facts, and race the family in Versus, up to 4 players on one phone.",
+      "app_store": "",
+      "screenshots": 7,
+      "ipad_screenshots": 7
+    },
+    {
       "slug": "kongqi",
       "name": "KongQi",
       "accent": "#E0406A",

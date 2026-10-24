@@ -264,6 +264,7 @@ html[data-theme="auto"] .theme-icon-auto { display: block; }
   box-shadow: 0 24px 48px -28px rgba(0, 0, 0, .4);
 }
 .shots-track img.wide { width: min(560px, 84vw); border-radius: 14px; }
+.shots-track img.ipad { width: min(430px, 84vw); }
 
 .features {
   display: grid; gap: 48px 40px;

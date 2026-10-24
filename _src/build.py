@@ -9,6 +9,7 @@ them as-is. Standard library only. Jekyll ignores _src/ (leading underscore).
 
 Add an app: append it to apps.json, add _src/<slug>/{overview,support,privacy}.html,
 put icon.png, favicon.png and screenshots/N.jpg in /<slug>/, then rebuild.
+iPad screenshots (optional): screenshots/ipad/N.jpg, 900×1200 (shown at 430 wide), with ipad_screenshots in apps.json.
 Mac screenshots (optional): screenshots/mac/N.jpg, 1200×750 (shown at 560 wide), with mac_screenshots in apps.json.
 """
 import hashlib
@@ -176,12 +177,17 @@ def carousel(app, n, folder, platform, size, cls=""):
 </section>"""
 
 
+# Optional extra carousels: (apps.json key prefix and folder, label, display size, img class)
+EXTRA_SHOTS = (("ipad", "iPad", (430, 574), "ipad"), ("mac", "Mac", (560, 350), "wide"))
+
+
 def shots(app):
-    """iPhone screenshots/N.jpg; Mac screenshots/mac/N.jpg (16:10) when mac_screenshots is set."""
-    mac = app.get("mac_screenshots", 0)
-    out = carousel(app, app["screenshots"], "", "iPhone" if mac else "", (264, 574))
-    if mac:
-        out += "\n" + carousel(app, mac, "mac/", "Mac", (560, 350), ' class="wide"')
+    """iPhone screenshots/N.jpg, plus iPad (screenshots/ipad/, 3:4) and Mac (screenshots/mac/, 16:10)
+    carousels when ipad_screenshots / mac_screenshots are set."""
+    extra = [e for e in EXTRA_SHOTS if app.get(f"{e[0]}_screenshots")]
+    out = carousel(app, app["screenshots"], "", "iPhone" if extra else "", (264, 574))
+    for key, platform, size, cls in extra:
+        out += "\n" + carousel(app, app[f"{key}_screenshots"], f"{key}/", platform, size, f' class="{cls}"')
     return out
 
 

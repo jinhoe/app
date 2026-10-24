@@ -8,7 +8,7 @@ _src/layout.html            page shell
 _src/home.html              hub page body
 _src/<slug>/*.html          overview, support and privacy bodies per app
 assets/site.css, site.js   styles (light/dark follow the system) and the screenshot carousel
-<slug>/icon.png, favicon.png, screenshots/N.jpg
+<slug>/icon.png, favicon.png, screenshots/N.jpg (optional ipad/ and mac/ subfolders)
 ```
 
 Build after editing anything in `_src/` or `assets/site.css`:
