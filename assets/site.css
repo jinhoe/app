@@ -267,8 +267,9 @@ html[data-theme="auto"] .theme-icon-auto { display: block; }
 .shots-track img.ipad { width: min(430px, 84vw); }
 
 .features {
-  display: grid; gap: 48px 40px;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  /* two columns (2×2 for four features), one on narrow screens */
+  display: grid; gap: 56px clamp(40px, 6vw, 72px);
+  grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
 }
 .feature { border-top: 1px solid var(--line); padding-top: 16px; }
 .feature .num { font-family: var(--mono); font-size: 13px; color: var(--accent-text); }
