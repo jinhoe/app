@@ -9,6 +9,8 @@ them as-is. Standard library only. Jekyll ignores _src/ (leading underscore).
 
 Add an app: append it to apps.json, add _src/<slug>/{overview,support,privacy}.html,
 put icon.png, favicon.png and screenshots/N.jpg in /<slug>/, then rebuild.
+iPhone Duo screenshots (optional): screenshots/duo/N.jpg, 844×1200 (shown at 404 wide), with duo_screenshots
+in apps.json; landscape ones are 1200×844 (shown at 560 wide), with duo_wide too.
 iPad screenshots (optional): screenshots/ipad/N.jpg, 900×1200 (shown at 430 wide), with ipad_screenshots in apps.json.
 Mac screenshots (optional): screenshots/mac/N.jpg, 1200×750 (shown at 560 wide), with mac_screenshots in apps.json.
 """
@@ -178,15 +180,19 @@ def carousel(app, n, folder, platform, size, cls=""):
 
 
 # Optional extra carousels: (apps.json key prefix and folder, label, display size, img class)
-EXTRA_SHOTS = (("ipad", "iPad", (430, 574), "ipad"), ("mac", "Mac", (560, 350), "wide"))
+EXTRA_SHOTS = (("duo", "iPhone Duo", (404, 574), "duo"), ("ipad", "iPad", (430, 574), "ipad"),
+               ("mac", "Mac", (560, 350), "wide"))
+DUO_WIDE = ((560, 394), "wide")  # landscape iPhone Duo shots, with duo_wide in apps.json
 
 
 def shots(app):
-    """iPhone screenshots/N.jpg, plus iPad (screenshots/ipad/, 3:4) and Mac (screenshots/mac/, 16:10)
-    carousels when ipad_screenshots / mac_screenshots are set."""
+    """iPhone screenshots/N.jpg, plus iPhone Duo (screenshots/duo/), iPad (screenshots/ipad/, 3:4) and
+    Mac (screenshots/mac/, 16:10) carousels when duo_ / ipad_ / mac_screenshots are set."""
     extra = [e for e in EXTRA_SHOTS if app.get(f"{e[0]}_screenshots")]
     out = carousel(app, app["screenshots"], "", "iPhone" if extra else "", (264, 574))
     for key, platform, size, cls in extra:
+        if key == "duo" and app.get("duo_wide"):
+            size, cls = DUO_WIDE
         out += "\n" + carousel(app, app[f"{key}_screenshots"], f"{key}/", platform, size, f' class="{cls}"')
     return out
 

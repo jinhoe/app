@@ -31,6 +31,7 @@
       "app_store": "https://apps.apple.com/sg/app/kongqi-singapore-haze-psi/id6819907714",
       "mac_app_store": "https://apps.apple.com/sg/app/kongqi-singapore-haze-psi/id6819907714?mt=12",
       "screenshots": 5,
+      "duo_screenshots": 6,
       "mac_screenshots": 4
     },
     {
@@ -42,7 +43,9 @@
       "title": "ZheBus – Singapore Bus Arrivals",
       "description": "Singapore bus arrivals. Simplified. Real-time timings, nearby stops and Live Activities, with no clutter.",
       "app_store": "https://apps.apple.com/sg/app/zhebus/id6746260540",
-      "screenshots": 7
+      "screenshots": 7,
+      "duo_screenshots": 7,
+      "duo_wide": true
     }
   ]
 }

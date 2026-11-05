@@ -265,6 +265,7 @@ html[data-theme="auto"] .theme-icon-auto { display: block; }
 }
 .shots-track img.wide { width: min(560px, 84vw); border-radius: 14px; }
 .shots-track img.ipad { width: min(430px, 84vw); }
+.shots-track img.duo { width: min(404px, 84vw); }
 
 .features {
   /* two columns (2×2 for four features), one on narrow screens */
